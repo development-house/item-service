@@ -4,19 +4,16 @@ using Microsoft.Extensions.Logging;
 
 namespace Application.Items.Commands;
 
-public class CreateItemCommandHandler : IRequest<CreateItemCommand, Item>
+public class CreateItemCommandHandler : IRequestHandler<CreateItemCommand, Item>
 {
     private readonly IItemRepository _itemRepository;
     private readonly ILogger<CreateItemCommandHandler> _logger;
-    private readonly IMediator _mediator;
 
     public CreateItemCommandHandler(IItemRepository itemRepository,
-        ILogger<CreateItemCommandHandler> logger,
-        IMediator mediator)
+        ILogger<CreateItemCommandHandler> logger)
     {
         _itemRepository = itemRepository ?? throw new ArgumentNullException(nameof(itemRepository));
         _logger = logger ?? throw new ArgumentNullException(nameof(itemRepository));
-        _mediator = mediator ?? throw new ArgumentNullException(nameof(itemRepository));
     }
     public async Task<Item> Handle(CreateItemCommand command, CancellationToken cancellationToken)
     {
@@ -24,7 +21,7 @@ public class CreateItemCommandHandler : IRequest<CreateItemCommand, Item>
         {
             throw new ArgumentNullException(nameof(command));
         }
-        var item = new Item(command.name,
+        var item = command.ToItem(command.name,
             command.label,
             command.type,
             command.category,

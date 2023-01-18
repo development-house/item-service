@@ -1,13 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc.ViewFeatures;
-using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Metadata;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Domain.Items;
+﻿namespace Domain.Items;
 
 public class Item : Entity<Guid, ItemState>
 {

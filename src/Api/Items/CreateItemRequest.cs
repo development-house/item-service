@@ -24,7 +24,7 @@ public record CreateItemRequest(
 {
     public CreateItemCommand ToCommand()
     {
-        return new(
+        return new CreateItemCommand(
             Name,
             Label,
             Type,
