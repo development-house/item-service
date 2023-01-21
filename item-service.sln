@@ -13,9 +13,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application", "src\Applicat
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "src\Domain\Domain.csproj", "{2261E2A3-DFB0-4BEF-B272-32ED08C8BF83}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure.MariaDb", "src\Infrastructure.MariaDb\Infrastructure.MariaDb.csproj", "{6A4FF28E-535D-4414-B6A5-FA45AD9DD4F2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Repository.MariaDb", "src\Repository.MariaDb\Repository.MariaDb.csproj", "{6A4FF28E-535D-4414-B6A5-FA45AD9DD4F2}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure.PostgreSql", "src\Infrastructure.PostgreSql\Infrastructure.PostgreSql.csproj", "{83846F0F-9D64-47D7-BA18-FEFC76982434}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Repository.PostgreSql", "src\Repository.PostgreSql\Repository.PostgreSql.csproj", "{83846F0F-9D64-47D7-BA18-FEFC76982434}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

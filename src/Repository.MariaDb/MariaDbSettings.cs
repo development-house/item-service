@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 
-namespace Infrastructure.MariaDb;
+namespace Repository.MariaDb;
 
 [ExcludeFromCodeCoverage]
 public record MariaDbSettings

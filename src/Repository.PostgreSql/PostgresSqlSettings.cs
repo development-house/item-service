@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 
-namespace Infrastructure.PostgreSql;
+namespace Repository.PostgreSql;
 
 [ExcludeFromCodeCoverage]
 public class PostgresSqlSettings

@@ -2,7 +2,7 @@
 using Domain.Items;
 using System.Data;
 
-namespace Infrastructure.MariaDb;
+namespace Repository.MariaDb;
 public class ItemRepository : IItemRepository
 {
     private readonly IDbConnection _connection;

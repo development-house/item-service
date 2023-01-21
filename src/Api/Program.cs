@@ -1,8 +1,8 @@
 using MediatR;
 using Api.Items;
 using Application.Items.Commands;
-using Infrastructure.MariaDb;
-using Infrastructure.PostgreSql;
+using Repository.MariaDb;
+using Repository.PostgreSql;
 using Domain;
 using Application;
 using System.Reflection;

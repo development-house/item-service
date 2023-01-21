@@ -26,8 +26,8 @@
 	<ItemGroup>
 		<ProjectReference Include="..\Application\Application.csproj" />
 		<ProjectReference Include="..\Domain\Domain.csproj" />
-		<ProjectReference Include="..\Infrastructure.MariaDb\Infrastructure.MariaDb.csproj" />
-		<ProjectReference Include="..\Infrastructure.PostgreSql\Infrastructure.PostgreSql.csproj" />
+		<ProjectReference Include="..\Repository.MariaDb\Repository.MariaDb.csproj" />
+		<ProjectReference Include="..\Repository.PostgreSql\Repository.PostgreSql.csproj" />
 	</ItemGroup>
 
 </Project>

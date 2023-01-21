@@ -4,7 +4,7 @@ using Polly;
 using Polly.Contrib.WaitAndRetry;
 using Polly.Retry;
 
-namespace Infrastructure.MariaDb;
+namespace Repository.MariaDb;
 /// <summary>
 /// SQL retry policies
 /// </summary>

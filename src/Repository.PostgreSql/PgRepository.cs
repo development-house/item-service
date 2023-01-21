@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Data;
 
-namespace Infrastructure.PostgreSql;
+namespace Repository.PostgreSql;
 public class PgRepository : IItemRepository
 {
     private readonly IDbConnection _connection;
