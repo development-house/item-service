@@ -41,5 +41,8 @@ public record struct ItemState(
     bool Unique,
     bool ShouldClose,
     bool UseRemove,
-    string Description
-);
+    string Description)
+    {
+        
+    }
+;

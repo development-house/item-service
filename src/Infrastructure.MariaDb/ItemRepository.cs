@@ -15,29 +15,27 @@ public class ItemRepository : IItemRepository
         var entity = item.GetState();
 
         const string Sql = @"
-            INSERT INTO [items]
-            ([id]
-            [name],
-            [label],
-            [type],
-            [category],
-            [model],
-            [texture],
-            [x],
-            [y],
-            [weight],
-            [decayrate],
-            [image],
-            [deg],
-            [fullyDegrades],
-            [nonStack],
-            [useable],
-            [unique],
-            [shouldClose],
-            [useRemove],
-            [description])
-            OUTPUT
-            INSERTED.*  
+            INSERT INTO items
+            (id,
+            `name`,
+            label,
+            `type`,
+            category,
+            model,
+            texture,
+            `x`,
+            `y`,
+            weight,
+            decayrate,
+            image,
+            deg,
+            fullyDegrades,
+            nonStack,
+            useable,
+            `unique`,
+            shouldClose,
+            useRemove,
+            description)
             VALUES
             (@Id,
             @Name,
@@ -58,9 +56,12 @@ public class ItemRepository : IItemRepository
             @Unique,
             @ShouldClose,
             @UseRemove,
-            @Description);";
+            @Description)
+            RETURNING 
+            *
+            ;";
 
-        var result = await _connection.QuerySingleOrDefaultAsync<ItemState>(new CommandDefinition(Sql, 
+        var result = await _connection.QuerySingleOrDefaultAsync<dynamic>(new CommandDefinition(Sql, 
         new {
             entity.Id,
             entity.Name, 

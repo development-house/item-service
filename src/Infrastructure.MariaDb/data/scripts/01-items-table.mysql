@@ -1,0 +1,26 @@
+DROP TABLE IF EXISTS `items`;
+CREATE TABLE IF NOT EXISTS `items` (
+	`serial` int(11) AUTO_INCREMENT,
+	`id` VARCHAR(250) NOT NULL,
+	`name` varchar(250) NOT NULL UNIQUE,
+  `label` varchar(250) NOT NULL,
+  `type` varchar(250) NOT NULL,
+  `category` varchar(250) NOT NULL,
+  `model` int(11) NOT NULL,
+  `texture` int(11) NOT NULL,
+  `x` int(11) NOT NULL,
+  `y` int(11) NOT NULL,
+  `weight` int(11) NOT NULL,
+  `decayrate` int(11) NOT NULL,
+  `image` varchar(250) NOT NULL,
+  `deg` varchar(250) NOT NULL,
+  `fullyDegrades` bool NOT NULL,
+  `nonStack` bool NOT NULL,
+  `useable` bool NOT NULL,
+  `unique` bool NOT NULL,
+  `shouldClose` bool NOT NULL,
+  `useRemove` bool NOT NULL,
+  `description` varchar(250) NOT NULL DEFAULT '',
+  PRIMARY KEY (`id`),
+  KEY `serial` (`serial`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb3;

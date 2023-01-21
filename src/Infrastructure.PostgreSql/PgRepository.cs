@@ -1,15 +1,16 @@
 ﻿using Domain.Items;
+using Microsoft.AspNetCore.Mvc;
 using System.Data;
 
 namespace Infrastructure.PostgreSql;
-public class PgRepository
+public class PgRepository : IItemRepository
 {
     private readonly IDbConnection _connection;
     public PgRepository(IDbConnection connection)
     {
         _connection = connection;
     }
-    public async Task<string> CreateItem(Item item, CancellationToken cancellationToken = default)
+    public async Task<Item> CreateItem(Item item, CancellationToken cancellationToken = default)
     {
         var entity = item.GetState();
 
@@ -17,8 +18,9 @@ public class PgRepository
             INSERT INTO [items]
             ([Name])
             VALUES
-            (@Name);";
+            (@Name);"
+        ;
 
-        return "success";
+        return Item.Load(result);
     }
 }
