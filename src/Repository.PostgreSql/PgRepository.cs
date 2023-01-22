@@ -1,4 +1,5 @@
-﻿using Domain.Items;
+﻿using Dapper;
+using Domain.Items;
 using Microsoft.AspNetCore.Mvc;
 using System.Data;
 
@@ -15,11 +16,76 @@ public class PgRepository : IItemRepository
         var entity = item.GetState();
 
         const string Sql = @"
-            INSERT INTO [items]
-            ([Name])
-            VALUES
-            (@Name);"
-        ;
+            INSERT INTO public.items
+            (id,
+            name,
+            label,
+            type,
+            category,
+            model,
+            texture,
+            x,
+            y,
+            weight,
+            decayrate,
+            image,
+            deg,
+            ""fullyDegrades"",
+            ""nonStack"",
+            useable,
+            ""unique"",
+            ""shouldClose"",
+            ""useRemove"",
+            description)
+	        VALUES
+            (@Id,
+            @Name,
+            @Label,
+            @Type,
+            @Category,
+            @Model,
+            @Texture,
+            @X,
+            @Y,
+            @Weight,
+            @Decayrate,
+            @Image,
+            @Deg,
+            @FullyDegrades,
+            @NonStack,
+            @Useable,
+            @Unique,
+            @ShouldClose,
+            @UseRemove,
+            @Description)
+            RETURNING
+            *
+            ;";
+
+        var result = await _connection.QuerySingleOrDefaultAsync<ItemState>(new CommandDefinition(Sql,
+        new
+        {
+            entity.Id,
+            entity.Name,
+            entity.Label,
+            entity.Type,
+            entity.Category,
+            entity.Model,
+            entity.Texture,
+            entity.X,
+            entity.Y,
+            entity.Weight,
+            entity.Decayrate,
+            entity.Image,
+            entity.Deg,
+            entity.FullyDegrades,
+            entity.NonStack,
+            entity.Useable,
+            entity.Unique,
+            entity.ShouldClose,
+            entity.UseRemove,
+            entity.Description
+        }, cancellationToken: cancellationToken));
 
         return Item.Load(result);
     }

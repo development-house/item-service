@@ -2,6 +2,7 @@
 
 namespace Api.Items;
 public record ItemResponse(
+        Guid id,
         string name,
         string label,
         string type,
@@ -24,7 +25,8 @@ public record ItemResponse(
 {
     public static ItemResponse Create(Item item)
     {
-        return new(item.Name,
+        return new(item.Id,
+            item.Name,
             item.Label,
             item.Type,
             item.Category,
