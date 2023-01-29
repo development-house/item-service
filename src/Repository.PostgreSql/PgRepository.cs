@@ -1,7 +1,10 @@
 ﻿using Dapper;
 using Domain.Items;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.Data;
+using System.Data.Common;
+using System.Threading;
 
 namespace Repository.PostgreSql;
 public class PgRepository : IItemRepository
@@ -11,6 +14,74 @@ public class PgRepository : IItemRepository
     {
         _connection = connection;
     }
+
+    public async Task<IEnumerable<Item>> GetItemsAsync(string? name = default, CancellationToken cancellationToken = default)
+    {
+        var limit = 20;
+        var filters = new Dictionary<string, string?>
+            {
+                { "name", name }
+            }.Where(filter => !string.IsNullOrEmpty(filter.Value))
+            .ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
+
+        var filterString = filters.Any()
+            ? $@"WHERE {string.Join(" AND ",
+                filters.Select(filter => $"{filter.Key} ~ '{filter.Value}'")
+            )}"
+            : string.Empty;
+
+        var sql = @$"
+            SELECT distinct *
+	        FROM public.items
+            {filterString} 
+	        ORDER BY name desc
+	        fetch first 10 rows only";
+
+        var parameters =
+            new DynamicParameters(filters.ToDictionary(kvp => kvp.Key, kvp =>
+            {
+                var prefixSearch = !kvp.Value!.Contains(' ') ? "" : string.Empty;
+                return $"\"{kvp.Value}{prefixSearch}\"" as object;
+            }));
+        parameters.Add(nameof(limit), limit, DbType.Int32);
+
+        var result = await _connection.QueryAsync<ItemState>(
+        new CommandDefinition(
+            sql,
+            cancellationToken: cancellationToken)
+        );
+
+        return result.Select(Item.Load).ToList();
+    }
+
+    public async Task<Item?> GetItemAsync(Guid id, CancellationToken cancellationToken = default)
+    {
+        var filters = new Dictionary<string, Guid>
+            {
+                { "id", id }
+            }
+            .ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
+
+        var filterString = filters.Any()
+            ? $@"WHERE {string.Join(" AND ",
+                filters.Select(filter => $"{filter.Key} = '{filter.Value}'")
+            )}"
+            : string.Empty;
+
+        var sql = @$"
+            SELECT distinct *
+	        FROM public.items
+            {filterString}";
+
+        var result = await _connection.QuerySingleOrDefaultAsync<ItemState>(
+            new CommandDefinition(
+                sql,
+                cancellationToken: cancellationToken)
+            );
+
+        return result.Id == Guid.Empty ? null : Item.Load(result);
+    }
+
     public async Task<Item> CreateItem(Item item, CancellationToken cancellationToken = default)
     {
         var entity = item.GetState();

@@ -1,13 +1,29 @@
 ﻿using Application.Items.Commands;
-using static System.Net.Mime.MediaTypeNames;
-using System.Reflection.Emit;
-using System.Xml.Linq;
+
 
 namespace Api.Items;
 public record CreateItemRequest(
-        Guid Id)
+        string Name,
+        string Label,
+        string Type,
+        string Category,
+        int Model,
+        int Texture,
+        int X,
+        int Y,
+        int Weight,
+        int Decayrate,
+        string Image,
+        bool Deg,
+        bool FullyDegrades,
+        bool NonStack,
+        bool Useable,
+        bool Unique,
+        bool ShouldClose,
+        bool UseRemove,
+        string Description)
 {
-    public CreateItemCommand ToCommand()
+    public CreateItemCommand ToCreateItemCommand()
     {
         return new CreateItemCommand(
             Name,

@@ -61,10 +61,11 @@ public class ItemRepository : IItemRepository
             *
             ;";
 
-        var result = await _connection.QuerySingleOrDefaultAsync<dynamic>(new CommandDefinition(Sql, 
-        new {
+        var result = await _connection.QuerySingleOrDefaultAsync<dynamic>(new CommandDefinition(Sql,
+        new
+        {
             entity.Id,
-            entity.Name, 
+            entity.Name,
             entity.Label,
             entity.Type,
             entity.Category,
@@ -86,5 +87,15 @@ public class ItemRepository : IItemRepository
         }, cancellationToken: cancellationToken));
 
         return Item.Load(result);
+    }
+
+    public Task<Item?> GetItemAsync(Guid id, CancellationToken cancellationToken = default)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<IEnumerable<Item>> GetItemsAsync(string? name = null, CancellationToken cancellationToken = default)
+    {
+        throw new NotImplementedException();
     }
 }

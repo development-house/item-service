@@ -5,6 +5,11 @@ public static class ItemApi
     {
         builder.MapGroup("/item")
             .MapPost("/", CreateItem.Create);
+        builder.MapGroup("/item")
+            .MapGet("/", GetItems.Search);
+        builder.MapGroup("/item")
+            .MapGet("/{id}", GetItems.GetItem);
+
         return builder;
     }
 }
