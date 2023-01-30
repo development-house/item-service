@@ -1,5 +1,6 @@
 ﻿using Domain.Items;
 using MediatR;
+using Microsoft.Extensions.Logging;
 
 namespace Application.Items.Commands;
 
@@ -21,5 +22,6 @@ public class UpdateItemCommandHandler : IRequestHandler<UpdateItemCommand, Item>
             throw new ArgumentNullException(nameof(command));
         }
 
+        
     }
 }
