@@ -27,7 +27,7 @@ public record UpdateItemCommand(
     public Item ToItem(
 )
     {
-        return new Item(name, label, type, category, model, texture, x, y, weight, decayrate, image, deg, fullyDegrades, nonStack, useable, unique, shouldClose, useRemove, description)
+        return new Item(name!, label!, type!, category!, model!, texture!, x!, y!, weight!, decayrate!, image!, deg!, fullyDegrades!, nonStack!, useable!, unique!, shouldClose!, useRemove!, description!)
         {
             Id = id
         };

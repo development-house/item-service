@@ -166,6 +166,7 @@ public class PgRepository : IItemRepository
         var entity = item.GetState();
 
         const string Sql = @"
+            
             ;";
 
         var result = await _connection.QuerySingleOrDefaultAsync<ItemState>(new CommandDefinition(Sql, entity, cancellationToken: cancellationToken));

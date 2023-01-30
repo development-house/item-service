@@ -9,6 +9,8 @@ public static class ItemApi
             .MapGet("/", GetItems.Search);
         builder.MapGroup("/item")
             .MapGet("/{id}", GetItems.GetItem);
+        builder.MapGroup("/item")
+            .MapPatch("/", UpdateItem.Update);
 
         return builder;
     }
