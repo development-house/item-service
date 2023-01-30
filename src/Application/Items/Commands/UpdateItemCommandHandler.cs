@@ -4,6 +4,7 @@ using System.Data;
 using System.Threading;
 using Domain.Items;
 using MediatR;
+using Microsoft.Extensions.Logging;
 
 namespace Application.Items.Commands;
 
@@ -27,7 +28,7 @@ public class UpdateItemCommandHandler : IRequestHandler<UpdateItemCommand, Item>
 
         var item = command.ToItem();
 
-        currentItem = await _itemRepository.GetItemAsync(command.Id, cancellationToken);
+        var currentItem = await _itemRepository.GetItemAsync(command.id, cancellationToken);
         // TODO: if currentitem does not exist
         // TODO: check admin requirement 
         // TODO: account for side effects
