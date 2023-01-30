@@ -10,7 +10,7 @@ public class ItemRepository : IItemRepository
     {
         _connection = connection;
     }
-    public async Task<Item> CreateItem(Item item, CancellationToken cancellationToken = default)
+    public async Task<Item> CreateItemAsync(Item item, CancellationToken cancellationToken = default)
     {
         var entity = item.GetState();
 
@@ -95,6 +95,11 @@ public class ItemRepository : IItemRepository
     }
 
     public Task<IEnumerable<Item>> GetItemsAsync(string? name = null, CancellationToken cancellationToken = default)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<Item> UpdateItemAsync(Item id, CancellationToken cancellationToken = default)
     {
         throw new NotImplementedException();
     }

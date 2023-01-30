@@ -40,7 +40,7 @@ public class CreateItemCommandHandler : IRequestHandler<CreateItemCommand, Item>
             command.shouldClose,
             command.useRemove,
             command.description);
-        item = await _itemRepository.CreateItem(item, cancellationToken);
+        item = await _itemRepository.CreateItemAsync(item, cancellationToken);
         _logger.LogInformation("{ItemLabel} item created.", item.Label);
         return item;
     }
