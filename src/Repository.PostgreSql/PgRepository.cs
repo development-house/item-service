@@ -82,7 +82,7 @@ public class PgRepository : IItemRepository
         return result.Id == Guid.Empty ? null : Item.Load(result);
     }
 
-    public async Task<Item> CreateItem(Item item, CancellationToken cancellationToken = default)
+    public async Task<Item> CreateItemAsync(Item item, CancellationToken cancellationToken = default)
     {
         var entity = item.GetState();
 
@@ -159,5 +159,17 @@ public class PgRepository : IItemRepository
         }, cancellationToken: cancellationToken));
 
         return Item.Load(result);
+    }
+
+    public async Task<Item> UpdateItemAsync(Item item, CancellationToken cancellationToken = default)
+    {
+        var entity = item.GetState();
+
+        const string Sql = @"
+            ;";
+
+        var result = await _connection.QuerySingleOrDefaultAsync<ItemState>(new CommandDefinition(Sql, entity, cancellationToken: cancellationToken));
+
+        return result.Id == Guid.Empty ? null : Item.Load(result);
     }
 }

@@ -1,4 +1,8 @@
-﻿using Domain.Items;
+﻿using System.Data.Common;
+using System.ComponentModel.Design;
+using System.Data;
+using System.Threading;
+using Domain.Items;
 using MediatR;
 
 namespace Application.Items.Commands;
@@ -21,5 +25,13 @@ public class UpdateItemCommandHandler : IRequestHandler<UpdateItemCommand, Item>
             throw new ArgumentNullException(nameof(command));
         }
 
+        var item = command.ToItem();
+
+        currentItem = await _itemRepository.GetItemAsync(command.Id, cancellationToken);
+        // TODO: if currentitem does not exist
+        // TODO: check admin requirement 
+        // TODO: account for side effects
+        item = await _itemRepository.UpdateItemAsync(item, cancellationToken);
+        return item;
     }
 }
