@@ -92,6 +92,7 @@ public class PgRepository : IItemRepository
             name,
             label,
             type,
+            ammotype,
             category,
             model,
             texture,
@@ -113,6 +114,7 @@ public class PgRepository : IItemRepository
             @Name,
             @Label,
             @Type,
+            @Ammotype,
             @Category,
             @Model,
             @Texture,
@@ -140,6 +142,7 @@ public class PgRepository : IItemRepository
             entity.Name,
             entity.Label,
             entity.Type,
+            entity.Ammotype,
             entity.Category,
             entity.Model,
             entity.Texture,
@@ -166,7 +169,29 @@ public class PgRepository : IItemRepository
         var entity = item.GetState();
 
         const string Sql = @"
-            
+            UPDATE items SET
+            name = COALESCE(NULLIF(@Name, ''), name),
+            label = COALESCE(NULLIF(@Label, ''), label),
+            type = COALESCE(NULLIF(@Type, ''), type),
+            ammotype = COALESCE(NULLIF(@Ammotype, ''), ammotype),
+            category = COALESCE(NULLIF(@Category, ''), category),
+            model = COALESCE(NULLIF(@Model::integer, null::integer), model::integer)::integer,
+            texture = COALESCE(NULLIF(@Texture::integer, null::integer), texture::integer)::integer,
+            x = COALESCE(NULLIF(@X::integer, null::integer), x::integer)::integer,
+            y = COALESCE(NULLIF(@Y::integer, null::integer), y::integer)::integer,
+            weight = COALESCE(NULLIF(@Weight::integer, null::integer), weight::integer)::integer,
+            decayrate = COALESCE(NULLIF(@Decayrate::integer, null::integer), decayrate::integer)::integer,
+            image = COALESCE(NULLIF(@Image, ''), image),
+            deg = COALESCE(NULLIF(@Deg::varchar(255), null::varchar(255)), deg::varchar(255))::Boolean,
+            ""fullyDegrades"" = COALESCE(NULLIF(@FullyDegrades::varchar(255), null::varchar(255)), ""fullyDegrades""::varchar(255))::Boolean,
+            ""nonStack"" = COALESCE(NULLIF(@NonStack::varchar(255), null::varchar(255)), ""fullyDegrades""::varchar(255))::Boolean,
+            useable = COALESCE(NULLIF(@Useable::varchar(255), null::varchar(255)), useable::varchar(255))::Boolean,
+            ""unique"" = COALESCE(NULLIF(@Unique::varchar(255), null::varchar(255)), ""unique""::varchar(255))::Boolean,
+            ""shouldClose"" = COALESCE(NULLIF(@ShouldClose::varchar(255), null::varchar(255)), ""shouldClose""::varchar(255))::Boolean,
+            ""useRemove"" = COALESCE(NULLIF(@UseRemove::varchar(255), null::varchar(255)), ""useRemove""::varchar(255))::Boolean,
+            description = COALESCE(NULLIF(@Description, ''), description)
+            WHERE id = @Id
+            RETURNING *
             ;";
 
         var result = await _connection.QuerySingleOrDefaultAsync<ItemState>(new CommandDefinition(Sql, entity, cancellationToken: cancellationToken));

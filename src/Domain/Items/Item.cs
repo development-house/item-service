@@ -6,6 +6,7 @@ public class Item : Entity<Guid, ItemState>
         string name,
         string label,
         string type,
+        string ammotype,
         string category,
         int? model,
         int? texture,
@@ -26,6 +27,7 @@ public class Item : Entity<Guid, ItemState>
         Name = name;
         Label = label;
         Type = type;
+        Ammotype = ammotype;
         Category = category;
         Model = model;
         Texture = texture;
@@ -46,6 +48,7 @@ public class Item : Entity<Guid, ItemState>
     public string Name { get; set; }
     public string Label { get; set; }
     public string Type { get; set; }
+    public string Ammotype { get; set; }
     public string Category { get; set; }
     public int? Model { get; set; }
     public int? Texture { get; set; }
@@ -69,6 +72,7 @@ public class Item : Entity<Guid, ItemState>
             state.Name,
             state.Label,
             state.Type,
+            state.Ammotype,
             state.Category,
             state.Model,
             state.Texture,
@@ -97,6 +101,7 @@ public class Item : Entity<Guid, ItemState>
             Name,
             Label,
             Type,
+            Ammotype,
             Category,
             Model,
             Texture,

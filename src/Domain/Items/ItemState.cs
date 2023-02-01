@@ -5,6 +5,7 @@
 /// <param name="name"></param>
 /// <param name="label"></param>
 /// <param name="type"></param>
+/// <param name="ammotype"></param>
 /// <param name="category"></param>
 /// <param name="model"></param>
 /// <param name="texture"></param>
@@ -26,6 +27,7 @@ public record struct ItemState(
     string Name,
     string Label,
     string Type,
+    string Ammotype,
     string Category,
     int? Model,
     int? Texture,

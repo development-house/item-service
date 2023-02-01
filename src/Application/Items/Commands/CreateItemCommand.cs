@@ -7,6 +7,7 @@ public record CreateItemCommand(
         string name,
         string label,
         string type,
+        string ammotype,
         string category,
         int model,
         int texture,
@@ -27,6 +28,7 @@ public record CreateItemCommand(
     public Item ToItem(string name,
         string label,
         string type,
+        string ammotype,
         string category,
         int model,
         int texture,
@@ -44,7 +46,7 @@ public record CreateItemCommand(
         bool useRemove,
         string description)
     {
-        return new Item(name, label, type, category, model, texture, x, y, weight, decayrate, image, deg, fullyDegrades, nonStack, useable, unique, shouldClose, useRemove, description)
+        return new Item(name, label, type, ammotype, category, model, texture, x, y, weight, decayrate, image, deg, fullyDegrades, nonStack, useable, unique, shouldClose, useRemove, description)
         {
             Id = NewId.Next().ToSequentialGuid()
         };

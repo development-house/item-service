@@ -24,6 +24,7 @@ public class CreateItemCommandHandler : IRequestHandler<CreateItemCommand, Item>
         var item = command.ToItem(command.name,
             command.label,
             command.type,
+            command.ammotype,
             command.category,
             command.model,
             command.texture,
