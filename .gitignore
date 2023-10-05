@@ -37,7 +37,7 @@ msbuild.wrn
 .vs/
 
 # App Secrets
-appsettings.*
+appsettings.*.json
 
 # Photoshop File
 items.psd
