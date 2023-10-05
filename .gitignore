@@ -36,5 +36,8 @@ msbuild.wrn
 # Visual Studio 2015
 .vs/
 
+# App Secrets
+appsettings.*
+
 # Photoshop File
 items.psd
